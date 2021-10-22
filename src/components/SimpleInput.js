@@ -16,6 +16,10 @@ const SimpleInput = (props) => {
   const formSubmissionHandler = event => {
     event.preventDefault();
 
+    if(enteredName.trim() === ""){
+      return;
+    }
+
     console.log(enteredName);
     //use ref
     //current holds the value u  asigned to useRef
