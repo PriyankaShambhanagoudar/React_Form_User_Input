@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 
 const SimpleInput = (props) => {
   //Using useRef hook
@@ -8,9 +8,24 @@ const SimpleInput = (props) => {
   //initially entered name is not valid so setting to false
   // const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  //const [formIsValid, setFormIsValid] = useState(false);
 
   const enteredNameIsValid = enteredName.trim() !== "";
+  //if we have 1 inputs
+  //const enteredAgeIsValid =
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
+ let formIsValid = false;
+  //useEffect(() => {
+    //if(enteredNameIsValid /** && enteredAgeIsValid */)
+    if (enteredNameIsValid) {
+      formIsValid=true;
+    }
+    //  else {
+    //   formIsValid=false;
+    // }
+  //}, [enteredNameIsValid]);
+  //[enteredNameIsValid /* enteredAgeIsValid */]
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -25,7 +40,7 @@ const SimpleInput = (props) => {
 
     setEnteredNameTouched(true);
 
-    if (!enteredName.trim() === "") {
+    if (!enteredNameIsValid) {
       return;
     }
     console.log(enteredName);
@@ -35,13 +50,12 @@ const SimpleInput = (props) => {
     // console.log(enteredValue);
 
     //reseting the entered value using UseStae
-    setEnteredName("");
-    setEnteredNameTouched(false)
+    setEnteredName('');
+    setEnteredNameTouched(false);
 
     //reseting the entredvalue using useRef
     //nameInputRef.current.value='';//Bad way  dont manipulate the dom
   };
-
 
   const nameInputClasses = nameInputIsInvalid
     ? "form-control invalid"
@@ -63,8 +77,8 @@ const SimpleInput = (props) => {
           <p className="error-text">Name must not be empty.</p>
         )}
       </div>
-      <div className="form-actions">
-        <button>Submit</button>
+      <div className='form-actions'>
+        <button disabled = { !formIsValid}>Submit</button>
       </div>
     </form>
   );
